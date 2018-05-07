@@ -76,6 +76,7 @@ main	exp-imp.py	/^def main():$/;"	f
 main	imp_plot.py	/^def main():$/;"	f
 main	implementation-sqrt.py	/^def main():$/;"	f
 main	implementation.py	/^def main():$/;"	f
+main	ind_p_gen.py	/^def main(av):$/;"	f
 main	mod_nonp_gen.py	/^def main(av):$/;"	f
 main	mod_nonp_gmp.py	/^def main(n, num_primes):$/;"	f
 main	mod_nonp_print.py	/^def main(av):$/;"	f
@@ -120,6 +121,7 @@ pfp	opt3_modalpha_implementaion.py	/^pfp = open('mod_p.json','r')$/;"	v
 pfp	opt4_modalpha_implementaion.py	/^pfp = open('mod_p.json','r')$/;"	v
 pos	opt3_modalpha_implementaion.py	/^pos = {}$/;"	v
 pos	opt4_modalpha_implementaion.py	/^pos = {}$/;"	v
+precompute	ind_p_gen.py	/^def precompute(p):$/;"	f
 prep_check	exp-imp.py	/^def prep_check():$/;"	f
 prep_check	imp_plot.py	/^def prep_check(s1,s2,s3,n):$/;"	f
 prep_check	implementation-sqrt.py	/^def prep_check(s1,s2,s3,n):$/;"	f
