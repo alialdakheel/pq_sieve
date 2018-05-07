@@ -1,0 +1,153 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+$r$  for a Specific `$n bmod h$	paper/Section1.tex	/^			\\end{algorithm}$/;"	b
+Choosing a prime h	paper/Section1.tex	/^\\end{itemize}$/;"	u
+Complexity Analysis	paper/Section1.tex	/^}$/;"	u
+Complexity of The Search Part	paper/Section1.tex	/^			$$O(\\sum_{i=1}^b h_i b \\log_2 h_b)$\$$/;"	b
+Complexity of The Setup Part	paper/Section1.tex	/^		The factoring algorithm is split into two main parts a setup and search.$/;"	b
+Divisibility by 8	paper/Section1.tex	/^}$/;"	s
+Example	RSA_formulas.tex	/^                        The above table is for the first form in the list of $n$. The rest of the forms are provided in the Appendix.$/;"	u
+Example  with $h_1  7$  $h_2  13$ 	paper/Section1.tex	/^\\end{table}$/;"	u
+Exhaustive Listing	paper/Section1.tex	/^            To calculate $r \\bmod h$ for all $n \\bmod h$, one can find the Cayley tables for multiplication and addition then save the unique values in a manner similar to that of table~\\ref{table:a}. $/;"	b
+Formulas and Prime Fields	paper/Section1.tex	/^\\end{table}$/;"	s
+Hello this is section	paper/Abstract.tex	/^testj jthe rest of the document l$/;"	s
+Hello this is section	paper/Section1.tex	/^			$$O(b^2 (4+\\log_2(h_b)^2))$\$$/;"	s
+Introduction	paper/Intro.tex	/^\\begin{document}$/;"	s
+Multiple Prime Fields	paper/Section1.tex	/^}$/;"	s
+Product and Sum of Two Primes	paper/Section1.tex	/^\\begin{document}$/;"	s
+Using Inverse	paper/Section1.tex	/^			\\end{proof}$/;"	b
+a1	RSA_p+q.py	/^			a1 = 600$/;"	v
+a2	RSA_p+q.py	/^			a2 = 600$/;"	v
+a3	RSA_p+q.py	/^			a3 = 120$/;"	v
+acc	opt3_modalpha_implementaion.py	/^acc=1$/;"	v
+acc	opt4_modalpha_implementaion.py	/^acc=1$/;"	v
+b1	RSA_p+q.py	/^			b1 = 336$/;"	v
+b2	RSA_p+q.py	/^			b2 = 264$/;"	v
+b3	RSA_p+q.py	/^			b3 = 0$/;"	v
+calc_c	cont_square.py	/^def calc_c(a, b, k):$/;"	f
+calc_modn	mod_nonp_gmp.py	/^def calc_modn(a,b,a0,a1):$/;"	f
+check_eq	exp-imp.py	/^def check_eq(a,b,k):$/;"	f
+check_eq	imp_plot.py	/^def check_eq(a,b,k,n,fplot):$/;"	f
+check_eq	implementation-sqrt.py	/^def check_eq(a,b,k,n,fplot):$/;"	f
+check_eq	implementation.py	/^def check_eq(a,b,k):$/;"	f
+check_eq	modserial_3_7.py	/^def check_eq(a,b,k,n,fplot,index):$/;"	f
+check_eq	modserial_implementation.py	/^def check_eq(a,b,k,n,fplot):$/;"	f
+check_eq	modserialplot_implementation.py	/^def check_eq(a,b,k,n,fplot,index):$/;"	f
+check_eq	opt1_modalpha_implementaion.py	/^def check_eq(a,b,k,n,fplot):$/;"	f
+check_eq	opt2-77_modalpha_implementaion.py	/^def check_eq(r,n):$/;"	f
+check_eq	opt2_modalpha_implementaion.py	/^def check_eq(r,n):$/;"	f
+check_eq	opt3_modalpha_implementaion.py	/^def check_eq(r,n):$/;"	f
+check_eq	opt4_modalpha_implementaion.py	/^def check_eq(r,n):$/;"	f
+check_modlist	opt2-77_modalpha_implementaion.py	/^def check_modlist(a,b,k,n):$/;"	f
+check_modlist	opt2_modalpha_implementaion.py	/^def check_modlist(a,b,k,n):$/;"	f
+check_modlist	opt3_modalpha_implementaion.py	/^def check_modlist(a,b,k,index,n):$/;"	f
+check_modlist	opt4_modalpha_implementaion.py	/^def check_modlist(a,b,k,index,n):$/;"	f
+check_pos	opt3_modalpha_implementaion.py	/^def check_pos(a,b,k,n):$/;"	f
+check_pos	opt4_modalpha_implementaion.py	/^def check_pos(a,b,k,n):$/;"	f
+cont_sq	cont_sq-gmp.c	/^void cont_sq(mpz_t square, mpz_t C_1, mpz_t a_2_2){$/;"	f
+cont_sq	cont_sq.c	/^void cont_sq(unsigned int *square, unsigned int *C_1, unsigned int a_2_2){$/;"	f
+cont_sq	cont_square.py	/^def cont_sq(square, C_pre , a_2_2):$/;"	f
+diff	mod_nonp_gen.py	/^    diff = timer() - start$/;"	v
+diff	mod_nonp_print.py	/^    diff = timer() - start$/;"	v
+diff	mod_prodp_gen.py	/^    diff = timer() - start$/;"	v
+diff_time	mod_nonp_gmp.py	/^    diff_time = timer() - start_time$/;"	v
+eq	parse.py	/^eq = json.load(fp)$/;"	v
+eval_eq	mod_prodp_gen.py	/^def eval_eq(a0, a1, n0, n1):$/;"	f
+fp	equaitons_10x.py	/^fp = open("mod_p.json", "w")$/;"	v
+fp	list_n.py	/^fp = open("primes.txt","r")$/;"	v
+fp	listing_p-q.py	/^fp = open("p-q.list", "w")$/;"	v
+fp	mod_prodp_gen.py	/^fp = open('mod_p.json','r')$/;"	v
+fp	parse.py	/^fp = open('eq.json', 'r')$/;"	v
+gen_permlist	mod_prodp_gen.py	/^def gen_permlist(n0 ,n1):$/;"	f
+j_10	listing_p-q.py	/^	j_10 = 10 * j$/;"	v
+k1	RSA_p+q.py	/^			k1 = math.ceil( 2 * (math.ceil(math.sqrt(n[i])) - b1) \/ a1 )$/;"	v
+k2	RSA_p+q.py	/^			k2 = math.ceil( 2 * (math.ceil(math.sqrt(n[i])) - b2) \/ a2 )$/;"	v
+k3	RSA_p+q.py	/^			k3 = math.ceil( 2 * (math.ceil(math.sqrt(n[i])) - b3) \/ a3 )$/;"	v
+l	list_n.py	/^l = fp.read().split()$/;"	v
+length1	listing_p+q.py	/^		length1 = len(str(i)) + len(str(j)) + len(str(result1))$/;"	v
+length2	listing_p+q.py	/^		length2 = len(str(i)) + len(str(j)) + len(str(result2))$/;"	v
+main	cont_sq-gmp.c	/^int main(){$/;"	f
+main	cont_sq.c	/^int main(){$/;"	f
+main	exp-imp.py	/^def main():$/;"	f
+main	imp_plot.py	/^def main():$/;"	f
+main	implementation-sqrt.py	/^def main():$/;"	f
+main	implementation.py	/^def main():$/;"	f
+main	mod_nonp_gen.py	/^def main(av):$/;"	f
+main	mod_nonp_gmp.py	/^def main(n, num_primes):$/;"	f
+main	mod_nonp_print.py	/^def main(av):$/;"	f
+main	mod_p_gen.py	/^def main(av):$/;"	f
+main	mod_p_optgen.py	/^def main(av,n):$/;"	f
+main	mod_prodp_gen.py	/^def main():$/;"	f
+main	modserial_3_7.py	/^def main():$/;"	f
+main	modserial_implementation.py	/^def main():$/;"	f
+main	modserialplot_implementation.py	/^def main():$/;"	f
+main	opt1_modalpha_implementaion.py	/^def main():$/;"	f
+main	opt2-77_modalpha_implementaion.py	/^def main():$/;"	f
+main	opt2_modalpha_implementaion.py	/^def main():$/;"	f
+main	opt3_modalpha_implementaion.py	/^def main():$/;"	f
+main	opt4_modalpha_implementaion.py	/^def main():$/;"	f
+mod_11	equaitons_10x.py	/^mod_11 = {}$/;"	v
+mod_7	equaitons_10x.py	/^mod_7 = {}$/;"	v
+mod_77	opt2-77_modalpha_implementaion.py	/^mod_77 = [ 7, 10 , 35, 42, 56, 70, 12, 26, 40, 54, 68, 75, 2, 9, 23, 37, 51, 65]$/;"	v
+mod_nonp	mod_nonp_print.py	/^    mod_nonp = main(sys.argv)$/;"	v
+mod_p	equaitons_10x.py	/^mod_p = {7:mod_7, 11:mod_11}$/;"	v
+mod_p	mod_tst.py	/^mod_p = dict()$/;"	v
+mod_p	opt2-77_modalpha_implementaion.py	/^mod_p = json.load(pfp)$/;"	v
+mod_p	opt2_modalpha_implementaion.py	/^mod_p = json.load(pfp)$/;"	v
+mod_p	opt3_modalpha_implementaion.py	/^mod_p = json.load(pfp)$/;"	v
+mod_p	opt4_modalpha_implementaion.py	/^mod_p = json.load(pfp)$/;"	v
+mod_prodp	opt4_modalpha_implementaion.py	/^mod_prodp = json.load(prodfp)$/;"	v
+modp	mod_prodp_gen.py	/^modp = load(fp)$/;"	v
+n	RSA_p+q.py	/^n = [ 7507,   7517 $/;"	v
+n	RSA_p+q.py	/^n=20831834399$/;"	v
+n	exp-imp.py	/^n= int(sys.argv[1])$/;"	v
+n	implementation.py	/^n= int(sys.argv[1])$/;"	v
+n	listing_p-q.py	/^n = 10000$/;"	v
+n	opt4_modalpha_implementaion.py	/^n=sys.argv[1]$/;"	v
+np1_modp_str	opt4_modalpha_implementaion.py	/^np1_modp_str = ''$/;"	v
+np1_modp_str	opt4_modalpha_implementaion.py	/^np1_modp_str = np1_modp_str[3:]  #Correctng first element$/;"	v
+num_primes	mod_prodp_gen.py	/^num_primes = 4 # warning: supports only 2 primes ATM$/;"	v
+p_prod	opt3_modalpha_implementaion.py	/^p_prod = acc$/;"	v
+p_prod	opt4_modalpha_implementaion.py	/^p_prod = acc$/;"	v
+permlst	opt4_modalpha_implementaion.py	/^permlst = mod_prodp[np1_modp_str] # the list we are looking for$/;"	v
+pfp	opt2-77_modalpha_implementaion.py	/^pfp = open('mod_p.json','r')$/;"	v
+pfp	opt2_modalpha_implementaion.py	/^pfp = open('mod_p.json','r')$/;"	v
+pfp	opt3_modalpha_implementaion.py	/^pfp = open('mod_p.json','r')$/;"	v
+pfp	opt4_modalpha_implementaion.py	/^pfp = open('mod_p.json','r')$/;"	v
+pos	opt3_modalpha_implementaion.py	/^pos = {}$/;"	v
+pos	opt4_modalpha_implementaion.py	/^pos = {}$/;"	v
+prep_check	exp-imp.py	/^def prep_check():$/;"	f
+prep_check	imp_plot.py	/^def prep_check(s1,s2,s3,n):$/;"	f
+prep_check	implementation-sqrt.py	/^def prep_check(s1,s2,s3,n):$/;"	f
+prep_check	implementation.py	/^def prep_check():$/;"	f
+prep_check	modserial_3_7.py	/^def prep_check(s1,s2,s3,n):$/;"	f
+prep_check	modserial_implementation.py	/^def prep_check(s1,s2,s3,n):$/;"	f
+prep_check	modserialplot_implementation.py	/^def prep_check(s1,s2,s3,n):$/;"	f
+prep_check	opt1_modalpha_implementaion.py	/^def prep_check(s1,s2,s3,n):$/;"	f
+prep_check	opt2-77_modalpha_implementaion.py	/^def prep_check(s1,s2,s3,n):$/;"	f
+prep_check	opt2_modalpha_implementaion.py	/^def prep_check(s1,s2,s3,n):$/;"	f
+prep_check	opt3_modalpha_implementaion.py	/^def prep_check(s1,s2,s3,n):$/;"	f
+prep_check	opt4_modalpha_implementaion.py	/^def prep_check(s1,s2,s3,n):$/;"	f
+primelist	mod_prodp_gen.py	/^primelist = modp.keys()$/;"	v
+prod	list_n.py	/^		prod = int(j) * int(i)$/;"	v
+prodfp	opt4_modalpha_implementaion.py	/^prodfp = open('mod_prodp.json','r')$/;"	v
+result1	listing_p+q.py	/^		result1 = (i * j + 1) % 64$/;"	v
+result2	listing_p+q.py	/^		result2 = (i + j) % 64$/;"	v
+start	imp_plot.py	/^def start(n):$/;"	f
+start	implementation-sqrt.py	/^def start(n):$/;"	f
+start	mod_nonp_gen.py	/^    start = timer()$/;"	v
+start	mod_nonp_print.py	/^    start = timer()$/;"	v
+start	mod_prodp_gen.py	/^    start = timer()$/;"	v
+start	modserial_3_7.py	/^def start(n):$/;"	f
+start	modserial_implementation.py	/^def start(n):$/;"	f
+start	modserialplot_implementation.py	/^def start(n):$/;"	f
+start	opt1_modalpha_implementaion.py	/^def start(n):$/;"	f
+start	opt2-77_modalpha_implementaion.py	/^def start(n):$/;"	f
+start	opt2_modalpha_implementaion.py	/^def start(n):$/;"	f
+start	opt3_modalpha_implementaion.py	/^def start(n):$/;"	f
+start	opt4_modalpha_implementaion.py	/^def start(n):$/;"	f
+start_time	mod_nonp_gmp.py	/^    start_time = timer()$/;"	v

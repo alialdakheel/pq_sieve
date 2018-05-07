@@ -1,0 +1,82 @@
+By combining this result with proposition 1, we get:
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|l|l|}
+    \hline
+    \multicolumn{2}{|l|}{Hundreds odd} \\ \hline
+    { \mid n+1$ & { \nmid n+1$   \\ \hline
+    $r=600k+312$ & $r=600k+112$ \\ \hline
+                 & $r=600k+512$  \\ \hline \hline
+                 \multicolumn{2}{|l|}{Hundreds even} \\ \hline
+                 { \mid n+1$ & { \nmid n+1$  \\ \hline
+                 $r=600k+12$  & $r=600k+212$ \\ \hline
+                              & $r=600k+412$ \\ \hline
+                            \end{tabular}
+                          \end{table}
+                        
+                        The above table is for the first form in the list of $n$. The rest of the forms are provided in the Appendix.
+                      
+                        \subsection{Example}
+                      In this section, we give an example on how we can find $p+q$ given $n$. Finding $p+q$ allows us to find $p$ and '$ if we combine it with the following equation for $p-q$:
+                      \begin{equation}
+                        p-q = \sqrt{(p+q)^2 -4n} 
+                      \end{equation}
+                      (Notice that $p+q > 2\sqrt{n}$)
+                    
+                      We start by looking at the value $n$ and find the table of formulas corresponding to the form of $n$. After that, we use the formulas to search for $r$. We find $r$ when the value $\sqrt{r^2 - 4n}$ is equal to an integer (see Appendix A).
+                    
+                    Given $n=9476465591$, we will try to find $p$ and '$ (we computed $n$ from $p=101693$ and '=93187$ so we are going to check that our solution matches these values).
+                  \begin{enumerate}\setlength\itemsep{1em}
+                          \item $n=91 \mod 100$, so we look at table~\ref{table:10} in Appendix B.
+                              \item { \mid n+1$ and the hundreds is odd, so $r$ could be one of the formulas: \\
+                                    $r_1 = 600k_1+192$ \\
+                                      $r_2 = 600k_2+408$ \\ 
+                                        $r_3 = 120k_3$
+                                      \item [\sqrt{n} \approx 194694$. Since $r_1, r_2, r_3 > 2\sqrt{n}$, the starting points will be: \\
+                                            $k_{1,0} = 324$ \\
+                                              $k_{2,0} = 324$ \\ 
+                                                $k_{3,0} = 1623$ 
+                                                  \item We evaluate $r_1, r_2, r_3$ starting with the above values for $k_{1,0}, k_{2,0}, k_{3,0}$ respectively, and continue to increment the $k$'s until $\sqrt{r^2 - 4n}$ is equal to an integer. We find the right value for $k$ to be: \\ 
+                                                      $k_{3,1} = k_{3,0} + 1 = 1624$ \\
+                                                        Now we compute $r$ in the following way: \\
+                                                          $r = 120(k_{3,1}) = 120(1624)=194880$
+                                                            \item $p-q = \sqrt{r^2-4n} = \sqrt{37978214400-37905862364} = 8506$
+                                                                \item $p = {[r+(p-q)]/2} = 203386/2 = 101693$ \\ 
+                                                                    ' = n/p = 9476465591/101693 = 93187$
+                                                              \end{enumerate}
+                                                            (Notice in this example that $k$ is small; this is due to $p-q$ being small).
+                                                          
+                                                          
+                                                          \section{Background and Related Work}
+                                                        
+                                                        \subsection{The RSA Cryptosystem}
+                                                      RSA is a well-known cryptosystem that was introduced in 1977 by Ronald Rivest, Adi Shamir, and  Leonard Adleman~\cite{Rivest1978}. Rivest, Shamir, and Adleman invented RSA to provide confidentiality and authenticity to digital information travelling through insecure communication channels. RSA is one of the first cryptosystems to implement asymmetric encryption using public key cryptography. Before RSA, people relied on symmetric
+                                                    encryption whereby two parties must share the same key in order to communicate secretly. This shared key requirement is especially difficult in practice. Moreover, if one person wants to privately communicate with multiple people, this person needs to share a different key with each one of them adding more to the complexity of the problem. Public key cryptography solves this problem by using two different keys. One key is used for
+                                                  encryption, and that key is distributed publicly, while the other private key is used for decryption and it must be kept secret. If Alice wants to communicate with Bob in a secure way, she would use Bob's public key to encrypt her message and then send the resulting cipher text to Bob. Using his private key, Bob then decrypts the cipher text to obtain the original message from Alice.
+                                                
+                                                The inventors of RSA needed a special type of mathematical functions called one way trapdoor functions in order to implement public key cryptography. Such function is easy to compute for any given input but hard to invert without an additional piece of information called the trapdoor. The function they used was modular exponentiation where the encryption of a message $m$ can be easily computed by raising $m$ to some exponent "$ and taking
+                                              the remainder after dividing by some number $n$ called the modulus. The integer $n$ is the product of two large prime numbers $p$ and '$ and "$ is an odd integer such that " \ge 3$. The pair $(n, e)$ is distributed as the public key. To reverse this computation, another exponent $d$ is needed to undo the effect of "$ and that integer $d$ is the trapdoor. The integer $d$ is calculated such that "d = 1 \mod \phi{(n)}$ where $\phi$ is
+                                            Euler's totient function and $\phi{(n)} = (p - 1)(q - 1)$. The exponent $d$ must be kept secret along with the integers $p$ and '$. To break RSA, one must find $d$ given only $(n, e)$ which requires factoring $n$ to find its prime factors $p$ and '$. 
+                                          
+                                          \subsection{The RSA Problem}
+                                        Breaking RSA is known as the RSA problem. It is formally defined as follows:
+                                      Compute $M$ given a public key $(n,e)$ and a ciphertext ${C=M^e \mod n}$~\cite{Rivest2011}. It is believed to be as difficult as the integer factorization problem, however, no definite proof has been found. Clearly a solution to the integer factorization problem also solves the RSA problem, however, it is still unknown if the opposite is also true. On the one hand, some research shows that breaking RSA is not equivalent to integer factorization for
+                                    a very small public exponent~\cite{Boneh1998}. On the other hand, multiple researchers suggest that the RSA problem and integer factorization are equivalent~\cite{Aggarwal2009, Brown2005}.
+                                  
+                                  The fastest known method for factoring large numbers is the General Number Field Sieve~\cite{Bernstein1993}. Another method is the Fermat Factoring Attack which can be used if the factors $p$ and '$ are very close to each other~\cite{deWeger2002}. Moreover, Elliptic Curves have been used to factor large integers~\cite{Lenstra1987}.
+                                
+                                There are other ways to break RSA without factoring $n$. One way is to solve the discrete logarithm problem to find the private exponent $d$ that satisfies the equation ${M=C^d \mod n}$. This is also a difficult problem that has not been solved efficiently yet~\cite{Odlyzko2000}. Other attacks target the RSA cryptosystem itself. The most notable attacks include: Common Modulus, Low Private Exponent, Low Public Exponent, Hastad's Broadcast Attack,
+                              Franklin Reiter Related Message Attack, Coppersmith's Short Pad Attack, Partial Key Exposure Attack, and other implementation attacks all explained by Dan Boneh in~\cite{Boneh1999}.
+                            
+                            Despite the large number of attacks against RSA, it is still considered secure if implemented properly and large key sizes are used.
+                          Abstract
+                        
+                        \begin{abstract}
+                        Breaking RSA is one of the fundamental problems in cryptography. Due to its reliance on the difficulty of the integer factorization problem, no efficient solution has been found despite decades of extensive research. One of the possible ways to break RSA is by finding the value $p+q$ which requires searching the set of all even integers. In this paper, we present a number of formulas for $p+q$ that depend on the form of $n=pq$. These formulas make the set to be
+                      searched much smaller than the set of all even integers.  
+                    
+                  \end{abstract}
+                
+                \begin{IEEEkeywords}
+                RSA, cryptosystem, public key.
+            \end{IEEEkeywords}'''""""'"']}'''}}}}

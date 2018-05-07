@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb, amsthm}
+\usepackage[normalem]{ulem} 
+\usepackage{float} 
+\usepackage{tikz} 
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\begin{document}
+\section{Introduction}
+	A typical factorization algorithm is trial division which has been shown to have exponential complexity. There has been many attempts at designing new algorithms most of which relied on the difference of squares Pierre de Fermat's method or other variations of it. Over time, improvements on those gave us the quadratic sieve and the number field sieve algorithms. The quadratic sieve is known to be the fastest integer factorization algorithms for numbers less than 100 digits. On the other hand, the Number Field Sieve (NFS) has a better asymptotic complexity and is faster for larger numbers.
+
+	Generally, factoring algorithms are of two types deterministic and non-deterministic. Non-deterministic algorithms are not guaranteed to end, and could run for an indeterminate amount of time. Pollard's $\rho$ factoring method \ref{TODO} is one of the earlier attempts at designing an algorithm that doesn't guarantee a result but sometimes can be faster than other deterministic algorithms like trial division.  Deterministic algorithms guarantee the end of an algorithm at most in a worst-case running time, have been a topic of research for a long time. A lot of progress in the design and improved of deterministic general integer factoring algorithms has been made over time resulting in the current NFS.   
+
+	Solving the factorization porblem breaks many prosed public key cryptosystems most famous of which is the RSA. 
+	In this work, we use a modified Fermat's factorization to factor RSA numbers by making use of relations between the product and the sum of two prime numbers. These relations allow us to nearly halve the search space of the algorithm. We show that such relations can be applied multiple times without loss in the reduction of tries. 
+	
+	In section~\ref{sec:1} we prove that there are only $\frac{h-1}{2}$ or $\frac{h+1}{2}$ possible values of sums for any product of two primes modulo a certain odd prime $h$. After that we show how to compute these values with different methods depending on the algorithms requirement. In section~\ref{sec:2}, we show how to use the ideas from section~\ref{sec:1} with the formulas introduced in~\cite{Mohammed2017}. Section~\ref{sec:3}, generalizes and studies the use of multiple prime filed mappings to further reduce the search space. 
+
+	\subsection{Problem statement}
+		%Given an odd composite integer $n=pq$, find prime factors $p$ and $q$. The following condition is key to finding the number $r=p+q$. 
+	Let $n=pq$ where $p$ and $q$ are distinct odd primes, given $n$ find $p$ and $q$. The following condition is key to finding the number $r=p+q$. 
+		\begin{equation}\label{eq:1}
+			p-q = \sqrt{r^2 -4n} 
+		\end{equation}
+		There is a unique value $r \in \left[ \lceil 2 \sqrt{n} \rceil , n \right]$ that satisfies equation~\ref{eq:1} resulting in an integer $p-q$ proven in~\cite{Mohammed2017}. So, to factor $n$ we search for an integer number $r$  in the interval $\left[ \lceil 2 \sqrt{n} \rceil , n \right]$ then evaluate equation~\ref{eq:1}. If we find $r$ that produces an integer from~\ref{eq:1}, then a system of two linear equations can be written and solving for $p$ and $q$ results in $p=[(p+q)+(p-q)]/2$.
+
+
+%The security of RSA is one of the most researched topics in cryptography. It depends strongly on the size of the key used. Large key sizes are considered secure and hard to break. A large body of research in cryptology looked at analyzing the security of RSA and possible ways to break it. The naive way is brute force where an attacker tries to search for the key in the set of all possible keys. However, this method is not practical for large enough keys and believed to be computationally infeasible.
+
+%Another way requires solving the integer factorization problem. Integer factorization is a very difficult mathematical problem that requires tremendous time and computation power for sufficiently large numbers and can take up to hundreds or even thousands of years to solve with the most advanced computers. No efficient algorithm has been found to factor large integers in a reasonable time. For that reason, RSA is still widely used today to secure internet communications.
+
+%\textcolor{red}{
+%Another possible way to break RSA is to find the value $p+q$. Finding $p+q$ allows us to find $p$ and $q$ if we combine it with the following equation for $p-q$:
+%When we have the values $p+q$ and $p-q$, we can construct a system of two linear equations to solve for $p$ and $q$ where $p=[(p+q)+(p-q)]/2$.
+%}
+
+%The trivial method to find $p+q$ is to search the set of all even numbers. In our work, we try to find a better way to search for $p+q$ given $n=pq$ by analyzing the relationship between the two values. We present a number of formulas for $p+q$ for any form of $n$. These formulas limit the search to a much smaller set than the set of all even numbers, thus making this method a significant improvement on simple brute force attacks. 
+\section{Background and Related Work}
+
+
+\subsection{The RSA Cryptosystem}
+RSA is a well-known cryptosystem that was introduced in 1977 by Ronald Rivest, Adi Shamir, and  Leonard Adleman~\cite{Rivest1978}. Rivest, Shamir, and Adleman invented RSA to provide confidentiality and authenticity to digital information travelling through insecure communication channels. RSA is one of the first cryptosystems to implement asymmetric encryption using public key cryptography. Before RSA, people relied on symmetric encryption whereby two parties must share the same key in order to communicate secretly. This shared key requirement is especially difficult in practice. Moreover, if one person wants to privately communicate with multiple people, this person needs to share a different key with each one of them adding more to the complexity of the problem. Public key cryptography solves this problem by using two different keys. One key is used for encryption, and that key is distributed publicly, while the other private key is used for decryption and it must be kept secret. If Alice wants to communicate with Bob in a secure way, she would use Bob's public key to encrypt her message and then send the resulting cipher text to Bob. Using his private key, Bob then decrypts the cipher text to obtain the original message from Alice.
+
+The inventors of RSA needed a special type of mathematical functions called one way trapdoor functions in order to implement public key cryptography. Such function is easy to compute for any given input but hard to invert without an additional piece of information called the trapdoor. The function they used was modular exponentiation where the encryption of a message $m$ can be easily computed by raising $m$ to some exponent $e$ and taking the remainder after dividing by some number $n$ called the modulus. The integer $n$ is the product of two large prime numbers $p$ and $q$ and $e$ is an odd integer such that $e \ge 3$. The pair $(n, e)$ is distributed as the public key. To reverse this computation, another exponent $d$ is needed to undo the effect of $e$ and that integer $d$ is the trapdoor. The integer $d$ is calculated such that $ed = 1 \mod \phi{(n)}$ where $\phi$ is Euler's totient function and $\phi{(n)} = (p - 1)(q - 1)$. The exponent $d$ must be kept secret along with the integers $p$ and $q$. To break RSA, one must find $d$ given only $(n, e)$ which requires factoring $n$ to find its prime factors $p$ and $q$. 
+
+\subsection{The RSA Problem}
+Breaking RSA is known as the RSA problem. It is formally defined as follows:
+Compute $M$ given a public key $(n,e)$ and a ciphertext ${C=M^e \mod n}$~\cite{Rivest2011}. It is believed to be as difficult as the integer factorization problem, however, no definite proof has been found. Clearly a solution to the integer factorization problem also solves the RSA problem, however, it is still unknown if the opposite is also true. On the one hand, some research shows that breaking RSA is not equivalent to integer factorization for a very small public exponent~\cite{Boneh1998}. On the other hand, multiple researchers suggest that the RSA problem and integer factorization are equivalent~\cite{Aggarwal2009,Brown2005}.
+
+The fastest known method for factoring large numbers is the General Number Field Sieve~\cite{Bernstein1993}. Another method is the Fermat Factoring Attack which can be used if the factors $p$ and $q$ are very close to each other~\cite{deWeger2002}. Moreover, Elliptic Curves have been used to factor large integers~\cite{Lenstra1987}.
+
+There are other ways to break RSA without factoring $n$. One way is to solve the discrete logarithm problem to find the private exponent $d$ that satisfies the equation ${M=C^d \mod n}$. This is also a difficult problem that has not been solved efficiently yet~\cite{Odlyzko2000}. Other attacks target the RSA cryptosystem itself. The most notable attacks include: Common Modulus, Low Private Exponent, Low Public Exponent, Hastad's Broadcast Attack, Franklin Reiter Related Message Attack, Coppersmith's Short Pad Attack, Partial Key Exposure Attack, and other implementation attacks all explained by Dan Boneh in~\cite{Boneh1999}.
+
+Despite the large number of attacks against RSA, it is still considered secure if implemented properly and large key sizes are used.
+\end{document}

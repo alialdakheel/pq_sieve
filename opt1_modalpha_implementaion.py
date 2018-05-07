@@ -46,7 +46,7 @@ def check_eq(a,b,k,n,fplot):
     interm = r**2 - 4*n
     #res = math.sqrt(interm)
     is_res = is_square(mpz(interm))
-    fplot.write(str(k) + "  " + str(r) + "  " + str(r % 7) + "  " + str(r % 11) + "  " + str(interm) + '    ' +  '\n')
+    fplot.write(str(k) + "  " + str(r) + "  " + str(r % 7) + "  " + str(r % 13) + "  " + str(interm) + '    ' +  '\n')
     #print interm
     if (is_res):
         #print("\n----------------------------------------------")
