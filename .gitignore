@@ -4,4 +4,12 @@
 *.dvi
 *.log
 *.aux
+*.out
+*.sqlite
+__*
+dask*
+paper*
+literature*
+precompute/*
+old*
 
