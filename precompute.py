@@ -2,6 +2,7 @@
 
 import json
 import sys
+from tqdm.auto import tqdm
 from sqlitedict import SqliteDict
 
 def main(av):
@@ -30,15 +31,25 @@ def main(av):
         store_dict.commit()
 
 def precompute_c(c, p):
-        mod_p = list()
-        for i in range(1,p-1):
-            for j in range(i+1 ,p-1):
-                prod = (i*j) % p
-                s = (i+j) % p
-                if prod != c or s in mod_p:
-                    continue
-                mod_p.append((i+j) % p)
-        return sorted(mod_p)
+        if isinstance(p, list):
+            c_list = [c % p_i for p_i in p]
+            R_list = [precompute_c(c_i, p_i) for c_i, p_i in zip(c_list, p)]
+            x = reduce(mul, p)
+            raise Exception("Under dev...")
+        elif isinstance(p, int):
+            mod_p = list()
+            for i in tqdm(range(1, p), desc="Computing R"):
+                for j in range(i, p):
+                    prod = (i*j) % p
+                    s = (i+j) % p
+                    #print("i", i, "j", j, "p", prod , "s", s)
+                    if prod != c or s in mod_p:
+                        continue
+                    mod_p.append(s)
+            return sorted(set(mod_p))
+        else:
+            raise Exception("input p has unknown type")
 
 if __name__ == "__main__":
     main(sys.argv)
+

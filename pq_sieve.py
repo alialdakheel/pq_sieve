@@ -3,6 +3,8 @@ Copyright Ali@C4C.KACST
 '''
 import util
 import math
+from operator import mul
+from functools import reduce
 from pathlib import Path
 from tqdm.auto import tqdm
 from sqlitedict import SqliteDict
@@ -17,10 +19,15 @@ from precompute import precompute_c
 class PQSeive():
     def __init__(self, n, h=7, precompute_path=Path('precompute/mod_p_store.sqlite')):
         self.n = n
-        self.h = h
+        if isinstance(h, list):
+            self.h = reduce(mul, h)
+        elif isinstance(h, int):
+            self.h = h
+        else:
+            raise Exception("input h has unknown type")
         self.p_path = precompute_path
 
-        self.c = n % h
+        self.c = self.n % self.h
 
         with SqliteDict(self.p_path) as store_dict:
             try:
@@ -28,9 +35,11 @@ class PQSeive():
             except KeyError:
                 print(f"Precomputed values not found for c={self.c}, h={self.h}, computing on-the-fly...")
                 self.R = precompute_c(self.c, self.h)
+                store_dict[str(self.h)] = {self.c: self.R}
+                store_dict.commit()
 
         self._4n = 4 * self.n
-        self.sqrt_n = 2 * math.ceil(pow(n, 0.5)) 
+        self.sqrt_n = 2 * pow(self.n, 0.5) 
         self.a_0 = min(self.R)
         self.k0 = math.ceil((self.sqrt_n - self.a_0) / self.h)
 
@@ -59,14 +68,18 @@ class PQSeive():
 
 if __name__ == "__main__":
     #Experiment old (defaults)
-    pqs_old = PQSeive(800694907089021864656603)
+    #pqs_old = PQSeive(800694907089021864656603)
     #res_old = pqs_old.search()
 
 
     #Experiment 1 (defaults)
-    pqs1 = PQSeive(12759908025574684369)
-    res1 = pqs1.search()
+    #pqs1 = PQSeive(12759908025574684369)
+    #res1 = pqs1.search()
 
-    #Experiment 2 (defaults)
-    pqs2 = PQSeive(12759908025574684369, h=2**12)
-    res2 = pqs2.search()
+    #Experiment 2 (h=2^12)
+    #pqs2 = PQSeive(12759908025574684369, h=2**12)
+    #res2 = pqs2.search()
+
+    #Experiment 3 (h1=2^12, h2=3^3)
+    pqs3 = PQSeive(12759908025574684369, h=[2**12, 3**3])
+    #res3 = pqs3.search()
