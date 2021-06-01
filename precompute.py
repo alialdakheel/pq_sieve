@@ -1,34 +1,46 @@
 #!/usr/bin/env python
 
-import json
 import sys
+from pathlib import Path
 from tqdm.auto import tqdm
-from sqlitedict import SqliteDict
+import util
 
-def main(av):
-    num_p = int(av[1]) #number of primes to be used.
+store_dir = "precompute_store/"
 
-    pfp = open('primes.txt','r') #prime file pointer // a list of primes
+'''
+    Precompute using num_p primes from a list of primes (loaded from file)
+'''
+def precompute(num_p, offset=0, primes_path="primes.txt", store_dir=store_dir):
+    Path(store_dir).mkdir(exist_ok=True)
+
+    pfp = open(primes_path,'r') #prime file pointer to a list of primes
 
     # prepare prime list
     primes = pfp.read().split()
-    del primes[0:3] # delete first three primes namely [2,3,5]
+    #del primes[0:3] # delete first three primes namely [2,3,5]
+    del primes[0] # delete first prime (2)
 
-    mod_p = dict()
-    for p in primes[0:num_p]:
+    for p in tqdm(primes[offset:num_p], desc="Precomputing"):
         p = int(p)
-        mod_p[p]= dict()
-        for i in range(1,p):
-            for j in range(1,p):
-                if ((i+j) % p) in mod_p.get(p,{-1:-1}).get((i*j) % p,[-1,-1]):
-                    continue
-                mod_p[p].setdefault((i*j) % p,[]).append((i+j) % p)
+        rc_dict = precompute_p(p)
+        util.save_json(p, rc_dict, store_dir)
 
-    # print(mod_p)
-    with SqliteDict("mod_p_store.sqlite") as store_dict:
-        for k, v in mod_p.items():
-            store_dict[k] = {key: sorted(val) for key, val in v.items()}
-        store_dict.commit()
+def precompute_p(p, k=1):
+    pk = p**k
+    rc_dict = {c: set() for c in range(1, pk) if c % p != 0}
+    for i in tqdm(range(1, pk),
+            desc=f"Computing R(p={p},k={k})", leave=False):
+        for j in range(i, pk):
+            prod = (i*j) % pk
+            if prod % p == 0:
+                continue
+            s = (i+j) % pk
+            rc_dict[prod].add(s)
+    return {c:sorted(list(r_set)) for c, r_set in rc_dict.items()}
+
+def is_precomputed(p, c, store_dir=store_dir):
+    path = Path(store_dir)/f'{p}_{c}_store.json'
+    return path.is_file()
 
 def precompute_c(c, p):
         if isinstance(p, list):
@@ -38,7 +50,7 @@ def precompute_c(c, p):
             raise Exception("Under dev...")
         elif isinstance(p, int):
             mod_p = list()
-            for i in tqdm(range(1, p), desc="Computing R"):
+            for i in tqdm(range(1, p), desc=f"Computing R(p={p},c={c})"):
                 for j in range(i, p):
                     prod = (i*j) % p
                     s = (i+j) % p
@@ -51,5 +63,5 @@ def precompute_c(c, p):
             raise Exception("input p has unknown type")
 
 if __name__ == "__main__":
-    main(sys.argv)
+    precompute(int(sys.argv[1]))
 
