@@ -7,21 +7,23 @@ import util
 
 store_dir = "precompute_store/"
 
+def load_primes(primes_path):
+    pfp = open(primes_path,'r') #prime file pointer to a list of primes
+
+    # prepare prime list
+    primes = pfp.read().split()
+    #del primes[0:3] # delete first three primes namely [2,3,5]
+    #del primes[0] # delete first prime (2)
+    return list(map(int, primes))
+
 '''
     Precompute using num_p primes from a list of primes (loaded from file)
 '''
 def precompute(num_p, offset=0, primes_path="primes.txt", store_dir=store_dir):
     Path(store_dir).mkdir(exist_ok=True)
 
-    pfp = open(primes_path,'r') #prime file pointer to a list of primes
-
-    # prepare prime list
-    primes = pfp.read().split()
-    #del primes[0:3] # delete first three primes namely [2,3,5]
-    del primes[0] # delete first prime (2)
-
+    primes = load_primes(primes_path)
     for p in tqdm(primes[offset:num_p], desc="Precomputing"):
-        p = int(p)
         rc_dict = precompute_p(p)
         util.save_json(p, rc_dict, store_dir)
 

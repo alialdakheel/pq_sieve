@@ -1,4 +1,5 @@
 import json
+from gmpy2 import invert
 from pathlib import Path
 
 '''
@@ -44,3 +45,31 @@ def load_json(p, c,  store_dir):
             f'{p}_{c}_store.json', 'r') as fp:
         d = json.load(fp)
     return d[str(c)]
+
+def compute_Rcrt(h1, h2, r1_list, r2_list):
+    inv_h1 = pow(h1, -1, h2)
+    e = lambda x: ((inv_h1 * (x[1]-x[0])) % h2) * h1 + x[0]
+    return [e((x0,x1)) for x0 in r1_list for x1 in r2_list]
+
+def compute_Rx(h_list, R_list):
+    assert(len(h_list) == len(R_list) and len(h_list) > 0)
+    if len(h_list) == 1:
+        return sorted(R_list[0])
+
+    h1 = h_list.pop()
+    h2 = h_list.pop()
+    assert(isinstance(h1, int) and isinstance(h2, int))
+    r1_list = R_list.pop()
+    r2_list = R_list.pop()
+
+    h_list.append(h1 * h2)
+    R_list.append(compute_Rcrt(h1, h2, r1_list, r2_list))
+    return h_list[0], compute_Rx(h_list, R_list)
+
+def legendre_symbol(a, p):
+    s = pow(a, (p-1)//2, p)
+    return -1 if s != 1 else s
+
+def is_QR(c, h):
+    s = legendre_symbol(c, h)
+    return True if s == 1 else False
