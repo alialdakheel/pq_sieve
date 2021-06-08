@@ -15,7 +15,7 @@ def exp_step(num_p):
 
 def exp():
     size_list = list()
-    for i in range(1, 11):
+    for i in range(1, 20):
         print(f"======== Exp: (num_p: {i}) ========")
         Rx_size = exp_step(i)
         size_list.append(Rx_size)
@@ -27,7 +27,7 @@ def plot(size_list):
     #matplotlib.use('TKAgg')
     fig, ax = plt.subplots()
     ax.plot(list(range(1,len(size_list)+1)), size_list, 'o--')
-    plt.show()
+    fig.savefig('Rx_size_graph.png')
 
 if __name__=="__main__":
     s_list = exp()
