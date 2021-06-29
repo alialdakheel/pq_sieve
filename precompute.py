@@ -7,11 +7,15 @@ import util
 
 store_dir = "precompute_store/"
 
-def load_primes(primes_path):
+def load_primes(primes_path, limit=None):
     pfp = open(primes_path,'r') #prime file pointer to a list of primes
 
     # prepare prime list
-    primes = pfp.read().split()
+    primes = pfp.read().split()[:limit]
+    if (limit == None):
+        limit = len(primes)
+    assert(isinstance(limit, int))
+    primes = primes[:limit]
     #del primes[0:3] # delete first three primes namely [2,3,5]
     #del primes[0] # delete first prime (2)
     return list(map(int, primes))
