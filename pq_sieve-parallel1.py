@@ -1,6 +1,7 @@
 '''
 Copyright Ali@C4C.KACST
 '''
+import os
 import util
 import math
 from operator import mul
@@ -88,6 +89,7 @@ if __name__ == "__main__":
     #pqs_old = PQSeive(800694907089021864656603)
     #res_old = pqs_old.search()
 
+    print("current dir:", os.getcwd())
 
     #Experiment 1 (defaults)
     pqs1 = PQSeive(12759908025574684369)
@@ -96,8 +98,11 @@ if __name__ == "__main__":
 
     #Experiment 2 (defaults)
     pqs2 = PQSeive(12759908025574684369, h=2**12)
-    #res2 = pqs2.search()
-    #print(res2)
+    res2 = pqs2.search()
+    print(res2)
 
     #Experiment RSA-110
-    #pqs_rsa1 = PQSeive(35794234179725868774991807832568455403003778024228226193532908190484670252364677411513516111204504060317568667)
+    print("RSA-110")
+    pqs_rsa1 = PQSeive(35794234179725868774991807832568455403003778024228226193532908190484670252364677411513516111204504060317568667)
+    res_rsa1 = pqs_rsa1.search()
+    print(res_rsa1)
