@@ -11,4 +11,7 @@ paper*
 literature*
 precompute/*
 old*
+*.old
+*.bak
+*.debug
 
