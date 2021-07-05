@@ -48,22 +48,22 @@ class PQSieve():
             self._choose_h()
 
         self.primes_used = self.h
-        print("primes:", self.primes_used)
+        #print("primes:", self.primes_used)
 
         self.is_QR = [util.is_QR(self.n % p, p) for p in self.h]
-        print("is QR:", self.is_QR)
-        print("x= ", reduce(mul, self.h))
-        print("x bit length ", reduce(mul, self.h).bit_length())
+        #print("is QR:", self.is_QR)
+        #print("x= ", reduce(mul, self.h))
+        #print("x bit length ", reduce(mul, self.h).bit_length())
 
         self.R_list = [self._load_R(h, n % h) for h in self.h]
-        print("Rh's:",  print(self.R_list))
-        print("Len's of Rh's:",  [len(R) for R in self.R_list])
-        print("Sizes of Rh's:",  [sys.getsizeof(R) for R in self.R_list])
-        print("Expected len of Rx:", reduce(mul, [len(R) for R in self.R_list]))
+        #print("Rh's:",  print(self.R_list))
+        #print("Len's of Rh's:",  [len(R) for R in self.R_list])
+        #print("Sizes of Rh's:",  [sys.getsizeof(R) for R in self.R_list])
+        #print("Expected len of Rx:", reduce(mul, [len(R) for R in self.R_list]))
         # s_time = time()
         self.h, self.R = self._compute_Rx()
 
-        # self.h, self.R = self._compute_Rx_np()
+        #self.h, self.R = self._compute_Rx_np()
         #self.h, self.R = self._compute_Rx_opt4()
         #self.h, self.R = self._compute_Rx2(ind=(0,2))
         # time_diff = time() - s_time
@@ -72,17 +72,17 @@ class PQSieve():
         # print(self._compute_Rx_np.__name__)
         #print(self._compute_Rx_opt4.__name__)
 
-        # self.R = np.sort(self.R)
+        #self.R = np.sort(self.R)
         self.R = sorted(self.R)
         # assert(self.h == self.h2)
         # for i in range(len(self.R)):
             # assert(self.R[i] == self.R2[i])
-        print("type Rx", type(self.R))
-        print("type Rx[0]", type(self.R[0]))
-        print("type h", type(self.h))
+        #print("type Rx", type(self.R))
+        #print("type Rx[0]", type(self.R[0]))
+        #print("type h", type(self.h))
         # # print("Rx:", self.R)
-        print("Len of Rx:", len(self.R))
-        print("Size of Rx:", sys.getsizeof(self.R))
+        #print("Len of Rx:", len(self.R))
+        #print("Size of Rx:", sys.getsizeof(self.R))
 
         self.c = self.n % self.h
 
@@ -96,12 +96,12 @@ class PQSieve():
         self.b = self.b0 - sqrt_n_mod_h
         self.k0 = (self.sqrt_n - sqrt_n_mod_h) // self.h
         # self.k0 = (self.sqrt_n) // self.h
-        print("Starting point (s0,b0):", (self.k0, self.b0))
-        # self.R = self.R.tolist()
-        print("type Rx", type(self.R))
-        print("type Rx[0]", type(self.R[0]))
-        print("Len of Rx:", len(self.R))
-        print("Size of Rx:", sys.getsizeof(self.R))
+        #print("Starting point (s0,b0):", (self.k0, self.b0))
+        #self.R = self.R.tolist()
+        #print("type Rx", type(self.R))
+        #print("type Rx[0]", type(self.R[0]))
+        #print("Len of Rx:", len(self.R))
+        #print("Size of Rx:", sys.getsizeof(self.R))
         self.p_plus_q = None
 
     def _choose_num_p(self):
@@ -423,12 +423,12 @@ class PQSieve():
 
     def _search_step_j(self, i, j):
         r = self.h * (self.k0 + i) + self.R[j]
-        if (r != None and r > 121477995219678):
-            print(self.R[j-10:j])
-            print(type(self.R[j-1]))
-            raise Exception("skipped solution!")
-        return util.isSquare(r**2 - self._4n), r
-        # return is_square(r**2 - self._4n), r
+        #if (r != None and r > 121477995219678):
+            #print(self.R[j-10:j])
+            #print(type(self.R[j-1]))
+            #raise Exception("skipped solution!")
+        #return util.isSquare(r**2 - self._4n), r
+        return is_square(r**2 - self._4n), r
         
     def _search_step_i(self, i):
         if (i == 0):
@@ -459,11 +459,11 @@ class PQSieve():
                     pbar.close()
                     # print("Search took:", search_end_time - search_start_time)
                     self.p_plus_q = r[1]
-                    print(self.R[r[0]-10:r[0]])
-                    print(type(self.R[r[0]-1]))
+                    #print(self.R[r[0]-10:r[0]])
+                    #print(type(self.R[r[0]-1]))
                     return i, r
-                if (r != None and r[1] > 121477995219678):
-                   print("Skipped solution!!:", i, r)
+                #if (r != None and r[1] > 121477995219678):
+                   #print("Skipped solution!!:", i, r)
                    # return i, r
                 i += 1
                 pbar.update(1)
@@ -509,9 +509,9 @@ if __name__ == "__main__":
     #print(res3)
 
     #Experiment 4 (num_p=8)
-    # pqs4 = PQSieve(12759908025574684369, h=[], num_p=6)
-    #res4 = pqs4.search()
-    #print(res4)
+    pqs4 = PQSieve(12759908025574684369, h=[], num_p=7)
+    res4 = pqs4.search()
+    print(res4)
 
     #Experiment 5 (num_p=9) 21 digit, 68 bit number
     #pqs5 = PQSieve(223710178181483884087, h=[], num_p=4)
@@ -555,9 +555,9 @@ if __name__ == "__main__":
     #print(res9)
 
     #Experiment 10 (num_p=10) 28 digit, 92 bit number
-    pqs10 = PQSieve(3677169269011909330112649617, h=[], num_p=8)
-    res10 = pqs10.search()
-    print(res10)
+    #pqs10 = PQSieve(3677169269011909330112649617, h=[], num_p=8)
+    #res10 = pqs10.search()
+    #print(res10)
 
     #Experiment 10 (custom) 28 digit, 92 bit number
     # pqs10 = PQSieve(3677169269011909330112649617, h=[2**12, 3, 5, 13, 23, 31, 43, 47])
