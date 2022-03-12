@@ -16,8 +16,6 @@ def load_primes(primes_path, limit=None):
         limit = len(primes)
     assert(isinstance(limit, int))
     primes = primes[:limit]
-    #del primes[0:3] # delete first three primes namely [2,3,5]
-    #del primes[0] # delete first prime (2)
     return list(map(int, primes))
 
 '''
@@ -31,11 +29,14 @@ def precompute(num_p, offset=0, primes_path="primes.txt", store_dir=store_dir):
         rc_dict = precompute_p(p)
         util.save_json(p, rc_dict, store_dir)
 
-def precompute_p(p, k=1):
+def precompute_p(p, k=1, progress=False):
     pk = p**k
     rc_dict = {c: set() for c in range(1, pk) if c % p != 0}
     for i in tqdm(range(1, pk),
-            desc=f"Computing R(p={p},k={k})", leave=False):
+                  desc=f"Computing R(p={p},k={k})",
+                  leave=False,
+                  disable=not progress
+                  ):
         for j in range(i, pk):
             prod = (i*j) % pk
             if prod % p == 0:
@@ -48,7 +49,7 @@ def is_precomputed(p, c, store_dir=store_dir):
     path = Path(store_dir)/f'{p}_{c}_store.json'
     return path.is_file()
 
-def precompute_c(c, p):
+def precompute_c(c, p, progress=False):
         if isinstance(p, list):
             c_list = [c % p_i for p_i in p]
             R_list = [precompute_c(c_i, p_i) for c_i, p_i in zip(c_list, p)]
@@ -56,7 +57,10 @@ def precompute_c(c, p):
             raise Exception("Under dev...")
         elif isinstance(p, int):
             mod_p = list()
-            for i in tqdm(range(1, p), desc=f"Computing R(p={p},c={c})"):
+            for i in tqdm(range(1, p),
+                          desc=f"Computing R(p={p},c={c})",
+                          disable=not progress
+                          ):
                 for j in range(i, p):
                     prod = (i*j) % p
                     s = (i+j) % p
