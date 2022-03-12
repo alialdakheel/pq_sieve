@@ -10,6 +10,7 @@ dask*
 paper*
 literature*
 precompute/*
+precompute_store/*
 old*
 *.old
 *.bak
