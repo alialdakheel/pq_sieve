@@ -38,13 +38,12 @@ class PQSieve():
         self.progress = progress
         self.total_i = 0
 
+        if (self.num_p == None):
+            self.num_p = self._choose_num_p()
+
         if (len(self.h) != 0):
             self.num_p = len(self.h)
-
-        if (self.num_p == None):
-            self._choose_num_p()
-
-        if (len(self.h) == 0):
+        else:
             self._choose_h()
 
         self.primes_used = self.h
@@ -100,12 +99,12 @@ class PQSieve():
 
         # Choose number of primes lower than the first larger size
         for s in n_sigma_table.keys():
-            if s > self.n_bits:
-                self.num_p = n_sigma_table[s] - 1
-            else:
-                #Default (temporary measure)
-                print("Sigma table exhausted, falling to default num_p")
-                self.num_p = len(str(self.n))//2
+            if s >= self.n_bits:
+                return n_sigma_table[s] - 1
+
+        #Default (temporary measure)
+        print("Sigma table exhausted, falling to default num_p")
+        return len(str(self.n))//2
 
     def _choose_h(self):
         primes = load_primes(self.primes_path)
@@ -131,7 +130,9 @@ class PQSieve():
             if (len(self.h) >= self.num_p):
                 break
         if (len(self.h) < self.num_p):
-            raise Exception("Prime list exhausted, not enough primes available")
+            raise Exception(
+                "Prime list exhausted, not enough primes available"
+            )
 
     def _load_R(self, h, c):
         if is_precomputed(h, c, self.p_dir):
@@ -188,6 +189,12 @@ class PQSieve():
         return res, (j, r)
 
     def search(self):
+        print(
+            "Starting search with:", 
+            "num_p:", self.num_p, 
+            "h:", self.h,
+        )
+
         i = 0
         with tqdm(desc="Search", 
                   total=int(((self.n/3)+3))//(self.h*len(self.R)),
@@ -239,11 +246,14 @@ if __name__ == "__main__":
     # del pqs3
 
     #Experiment 3 (h1=2^12, h2=3^3)
-    pqs3 = PQSieve(12759908025574684369, h=[2**6, 3**2])
-    res3 = pqs3.search()
-    print(res3)
-    print("Rx" , pqs3.R)
+    # pqs3 = PQSieve(12759908025574684369, h=[2**6, 3**2])
+    # res3 = pqs3.search()
+    # print(res3)
+    # print("Rx" , pqs3.R)
     # del pqs3
+    # pqs3 = PQSieve(12759908025574684369)
+    # res3 = pqs3.search()
+    # print(res3)
 
     # pqs3 = PQSieve(12759908025574684369, h=[2**12, 3**4, 5**3, 7])
     # res3 = pqs3.search()
