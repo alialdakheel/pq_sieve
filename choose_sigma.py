@@ -6,8 +6,7 @@ e = list(range(2, limit + 1))
 
 bound_base = math.e
 # bound_base = 3
-# sqrtn = [(x-1) * (bound_base**(x * math.log2(x))) for x in e]
-# n = [x**2 for x in sqrtn]
+
 # n = [(x-1)**2 * (bound_base**(2 * x * math.log(x))) for x in e]
 n = [(x-1)**2 * (x**(2 * x)) for x in e]
 int_n = list(map(int, n))
@@ -28,14 +27,4 @@ res_dict = {
 
 print(f"Table for choosing e (with bound base: {bound_base})")
 print(tabulate(res_dict, headers='keys'))
-
-# small_dict = {
-    # "e": e[:15],
-    # "n": int_n[:15],
-    # "digits": digit_length[:15],
-    # "bits": bit_length[:15],
-# }
-
-# print(f"Table for choosing e (with bound base: {bound_base})")
-# print(tabulate(small_dict, headers='keys'))
 
