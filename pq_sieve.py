@@ -30,6 +30,7 @@ class PQSieve():
                  ):
         assert(isinstance(n, int) and isinstance(h, list))
         self.n = n
+        self.n_bits = self.n.bit_length()
         self.h = h
         self.num_p = num_p
         self.p_dir = precompute_dir
@@ -41,8 +42,6 @@ class PQSieve():
             self.num_p = len(self.h)
 
         if (self.num_p == None):
-            raise Exception("Under dev. Please input" 
-                            "number of primes manually")
             self._choose_num_p()
 
         if (len(self.h) == 0):
@@ -75,11 +74,42 @@ class PQSieve():
         self.p_plus_q = None
 
     def _choose_num_p(self):
-        #TODO: (temporary measure)
-        self.num_p = len(str(self.n))//2
+        # Sigma (number of primes to choose) : number of bits 
+        n_sigma_table = {
+            5: 2,
+            12: 3,
+            20: 4,
+            28: 5,
+            36: 6,
+            45: 7,
+            54: 8,
+            64: 9,
+            73: 10,
+            83: 11,
+            93: 12,
+            104: 13,
+            115: 14,
+            125: 15,
+            136: 16,
+            147: 17,
+            159: 18,
+            170: 19,
+            182: 20,
+            194: 21
+        }
+
+        # Choose number of primes lower than the first larger size
+        for s in n_sigma_table.keys():
+            if s > self.n_bits:
+                self.num_p = n_sigma_table[s] - 1
+            else:
+                #Default (temporary measure)
+                print("Sigma table exhausted, falling to default num_p")
+                self.num_p = len(str(self.n))//2
 
     def _choose_h(self):
         primes = load_primes(self.primes_path)
+
         # Choose k for each prime
         for i, h in enumerate(primes):
             if (h == 2):
@@ -87,19 +117,21 @@ class PQSieve():
                     k = 6
                 else:
                     k = 3
-            else:
+            elif (h == 3) or (h == 5):
                 if util.is_QR(self.n % h, h):
-                    if (h == 3):
-                        k = 3
-                    elif (h == 5):
-                        k = 2
-                    else:
-                        continue
+                    k = 2
                 else:
+                    # continue
                     k = 1
+            else:
+                k = 1
+
             self.h.append(h**k)
+
             if (len(self.h) >= self.num_p):
                 break
+        if (len(self.h) < self.num_p):
+            raise Exception("Prime list exhausted, not enough primes available")
 
     def _load_R(self, h, c):
         if is_precomputed(h, c, self.p_dir):
@@ -170,7 +202,7 @@ class PQSieve():
                     return i, r
                 i += 1
                 pbar.update(1)
-            raise("Search did not find a solution")
+            raise Exception("Search did not find a solution")
 
 
     def factors(self):
@@ -200,10 +232,19 @@ if __name__ == "__main__":
     # print("Rx" , pqs2.R)
 
     #Experiment 3 (h1=2^12, h2=3^3)
-    pqs3 = PQSieve(12759908025574684369, h=[2**6, 3**3])
+    # pqs3 = PQSieve(12759908025574684369, h=[2**6, 3**3])
+    # res3 = pqs3.search()
+    # print(res3)
+    # print("Rx" , pqs3.R)
+    # del pqs3
+
+    #Experiment 3 (h1=2^12, h2=3^3)
+    pqs3 = PQSieve(12759908025574684369, h=[2**6, 3**2])
     res3 = pqs3.search()
     print(res3)
     print("Rx" , pqs3.R)
+    # del pqs3
+
     # pqs3 = PQSieve(12759908025574684369, h=[2**12, 3**4, 5**3, 7])
     # res3 = pqs3.search()
     # print(res3)
@@ -221,6 +262,7 @@ if __name__ == "__main__":
     # pqs4 = PQSieve(12759908025574684369, h=[], num_p=7)
     # res4 = pqs4.search()
     # print(res4)
+    # del pqs4
 
     #Experiment 5 (num_p=9) 21 digit, 68 bit number
     #pqs5 = PQSieve(223710178181483884087, h=[], num_p=4)
@@ -239,14 +281,16 @@ if __name__ == "__main__":
     # res6 = pqs6.search()
     # print(res6)
     # del pqs6
+
     # pqs6 = PQSieve(4014363189286667855933, num_p=9)
     # res6 = pqs6.search()
     # print(res6)
+    # del pqs6
 
     #Experiment 6 (num_p=6) 22 digit, 72 bit number
-    # pqs6 = PQSieve(4014363189286667855933, h=[], num_p=16)
-    #res6 = pqs6.search()
-    #print(res6)
+    # pqs6 = PQSieve(4014363189286667855933, h=[], num_p=12)
+    # res6 = pqs6.search()
+    # print(res6)
 
     #Experiment 7 (num_p=9) 23 digit, 76 bit number
     #pqs7 = PQSieve(52273100668689816612043, h=[], num_p=9)
@@ -274,9 +318,9 @@ if __name__ == "__main__":
     # print(res10)
 
     #Experiment 11 (num_p=11) 29 digit, 96 bit number
-    #pqs11 = PQSieve(62821100886317431913009499013, h=[], num_p=11)
-    #res11 = pqs11.search()
-    #print(res11)
+    # pqs11 = PQSieve(62821100886317431913009499013, h=[], num_p=11)
+    # res11 = pqs11.search()
+    # print(res11)
 
     #Experiment 12 (num_p=11) 31 digit, 100 bit number
     #pqs12 = PQSieve(1026521762973406557162751475101, h=[], num_p=10)
